@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { batalharPokemon } from "../services/batalharService";
+import { batalharPokemon } from "../services/batalhaService";
 
 type Params = {
   pokemonAId: string;
@@ -16,7 +16,7 @@ export const batalharPokemon1v1 = async (
 
     const resultado = await batalharPokemon(pokemonAId, pokemonBId)
 
-    return res.status(204).send(resultado);
+    return res.status(200).send(resultado);
   } catch (error: any) {
     return res
       .status(400)
