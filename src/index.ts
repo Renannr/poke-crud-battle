@@ -13,7 +13,7 @@ app.setSerializerCompiler(serializerCompiler)
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'Typed API',
+      title: 'Pokemon Crud Battle API',
       version: '1.0.0'
     }
   },
