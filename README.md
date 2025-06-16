@@ -38,6 +38,8 @@ Com o container rodando, acesse:
 http://localhost:3333/docs
 ```
 
+![Exemplo documentação](docs.JPG)
+
 ## Endpoints
 
 ### Pokémons
