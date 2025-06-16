@@ -1,13 +1,14 @@
 import z from "zod";
 import { FastifyTypedInstance } from "../types";
 
+import { batalharPokemon1v1 } from "../controllers/batalhaController";
 import { atualizarPokemonById, carregarPokemon, criaNovoPokemon, excluirPokemon, listarPokemon } from "../controllers/pokemonController";
 
 export async function routes(app: FastifyTypedInstance) {
   app.get('/pokemons', {
     schema: {
       tags: ['pokemons'],
-      description: 'List pokemons',
+      description: 'Listar pokemons',
       response: {
         200: z.array(z.object({
           id: z.number(),
@@ -37,7 +38,7 @@ export async function routes(app: FastifyTypedInstance) {
   app.post('/pokemons', {
     schema: {
       tags: ['pokemons'],
-      description: 'Create a new pokemon',
+      description: 'Criar um novo pokemon',
       body: z.object({
         tipo: z.string(),
         treinador: z.string()
@@ -57,7 +58,7 @@ export async function routes(app: FastifyTypedInstance) {
   app.put('/pokemons/:id', {
     schema: {
       tags: ['pokemons'],
-      description: 'Update a pokemon',
+      description: 'Atualizar um pokemon',
       params: z.object({
         id: z.string().describe('ID do Pokémon'),
       }),
@@ -73,7 +74,7 @@ export async function routes(app: FastifyTypedInstance) {
   app.delete('/pokemons/:id', {
     schema: {
       tags: ['pokemons'],
-      description: 'Delete a pokemon',
+      description: 'Deletar um pokemon',
       params: z.object({
         id: z.string().describe('ID do Pokémon'),
       }),
@@ -82,4 +83,31 @@ export async function routes(app: FastifyTypedInstance) {
       }
     }
   }, excluirPokemon)
+
+  app.post('/batalhar/:pokemonAId/:pokemonBId', {
+    schema: {
+      tags: ['batalhar'],
+      description: 'Batalha entre 2 pokemon',
+      params: z.object({
+        pokemonAId: z.string().describe('ID do Pokémon A'),
+        pokemonBId: z.string().describe('ID do Pokémon B'),
+      }),
+      response: {
+        200: z.object({
+          "vencedor": z.object({
+            id: z.number(),
+            tipo: z.string(),
+            treinador: z.string(),
+            nivel: z.number()
+          }),
+          "perdedor": z.object({
+            id: z.number(),
+            tipo: z.string(),
+            treinador: z.string(),
+            nivel: z.number()
+          })
+        }),
+      }
+    }
+  }, batalharPokemon1v1)
 }
