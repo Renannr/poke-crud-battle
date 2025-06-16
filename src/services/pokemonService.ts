@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { prisma, PrismaClientKnownRequestError } from '../lib/prisma';
 
 export const PokemonSchema = z.object({
-  tipo: z.string(),
+  tipo: z.enum(['charizard', 'mewtwo', 'pikachu']), // tipos permitidos, posteriormente deve ser ajustado
   treinador: z.string(),
 });
 
@@ -14,6 +14,8 @@ export async function listarPokemons() {
 
 export async function criarPokemon(pokemon: PokemonInput) {
   try {
+    PokemonSchema.parse(pokemon); // validação dos tipos permitidos
+
     const novoPokemon = prisma.pokemon.create({
       data: {
         ...pokemon,
