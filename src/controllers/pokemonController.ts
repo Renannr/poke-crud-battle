@@ -17,7 +17,7 @@ export const criaNovoPokemon = async (
   try {
     const body = PokemonSchema.parse(req.body);
     const novoPokemon = await criarPokemon(body);
-    return res.status(201).send(novoPokemon);
+    return res.status(200).send(novoPokemon);
   } catch (error: any) {
     return res
       .status(400)
